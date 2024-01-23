@@ -3,7 +3,7 @@ Il progetto propone un sistema di gestione per stazioni di rifornimento e aziend
 
 
 # Components
-- [ER Diagram]([https://wiki.archlinux.org](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
+- [ER Diagram]([https://wiki.archlinux.org](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
 - [Schema](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/schema.sql)
 - [R for populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tabs.R)
 - [Sample Queries]
