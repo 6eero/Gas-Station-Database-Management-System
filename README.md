@@ -4,6 +4,6 @@ Il progetto propone un sistema di gestione per stazioni di rifornimento e aziend
 
 # Components
 - [ER Diagram](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
-- [SQL Schema](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/schema.sql)
+- [SQL Schema](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/schema.sql) and [triggers](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/triggers.sql)
 - [R for populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tabs.R)
 - [Sample Queries]
