@@ -1,0 +1,17 @@
+he longest line of the file: /home/gero/basi/AnniLavorativi.txt  is:   62
+
+The longest line of the file: /home/gero/basi/cognomi.txt  is:   de freitas sousa tavares
+
+The longest line of the file: /home/gero/basi/ComuniFVG.txt  is:   San Giorgio della Richinvelda
+
+The longest line of the file: /home/gero/basi/Giornate.txt  is:   Mercoledì
+
+The longest line of the file: /home/gero/basi/giorni.txt  is:   01
+
+The longest line of the file: /home/gero/basi/latitudini.txt  is:   45.59
+
+The longest line of the file: /home/gero/basi/longitudini.txt  is:   12.34
+
+The longest line of the file: /home/gero/basi/lettere.txt  is:   A
+
+The longest line of the file: /home/gero/basi/nomi.txt  is:   marie odette rose gabrielle
