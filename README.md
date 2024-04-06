@@ -1,12 +1,11 @@
 # About
-Il progetto propone un sistema di gestione per stazioni di rifornimento e aziende proprietarie. Ogni stazione è identificata da un codice e collegata a un'azienda con dettagli sulla posizione, tipi di carburante e pompe. Le aziende, con un codice univoco, hanno un responsabile regionale e un ufficio specifico. I dipendenti, identificati dal codice fiscale, lavorano presso le stazioni aziendali, con un monitoraggio del piano settimanale. L'obiettivo è semplificare la gestione delle operazioni e delle risorse umane, prestando attenzione alle possibili inconsistenze.
+The project proposes a management system for gas stations and owning companies. Each station is identified by a code and linked to a company with details about its location, types of fuel, and pumps. The companies, with a unique code, have a regional manager and a specific office. Employees, identified by their fiscal code, work at company stations, with monitoring of the weekly plan. The goal is to simplify the management of operations and human resources, paying attention to possible inconsistencies.
 
 
 # Components
 - [ER Diagram](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
-- [SQL Schema](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/schema.sql) and [triggers](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/triggers.sql)
-- [R for populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tabs.R)
-- [Sample Queries]
+- [SQL Schema and triggers](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/fuelstationdatabase.sql)
+- [R for populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tables.R)
 
 # Usage
 
@@ -22,7 +21,10 @@ Il progetto propone un sistema di gestione per stazioni di rifornimento e aziend
    ```
 
 3. **Start PostgreSQL Shell (psql)**:
-   Start the PostgreSQL shell by typing `psql -U postgres`.
+   Start the PostgreSQL shell by typing the command:
+   ```
+   psql -U postgres
+   ```
 
 5. **Create the Database**:
    Once inside the PostgreSQL shell, create a new database using the command:
