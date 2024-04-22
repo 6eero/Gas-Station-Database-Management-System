@@ -126,12 +126,12 @@ v_telefono <- data.frame(cifra1=sample(0:9,10000,replace=T),
                          cifra10=sample(0:9,10000,replace=T))
 v_telefono <- unite(v_telefono, telefono, cifra1,cifra2,cifra3,cifra4,cifra5,cifra6,cifra7,cifra8,cifra9,cifra10, sep="") 
 v_telefono <- v_telefono$telefono
-temp_tipo1_df <- dbGetQuery(con, "SELECT S1.codice,S2.codiceAzienda from STAZIONE_DI_RIFORNIMENTO AS S1, STAZIONE_DI_RIFORNIMENTO AS S2 WHERE S1.codiceAzienda<>S2.codiceAzienda;")
+temp_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceAzienda FROM STAZIONE_DI_RIFORNIMENTO LIMIT 8;")
 temp1_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceAzienda from STAZIONE_DI_RIFORNIMENTO;")
-v_codiciAzienda_tipo1 <- sample(temp_tipo1_df$codiceAzienda, 8, replace=F)
+v_codiciAzienda_tipo1 <- temp_tipo1_df$codiceAzienda
 v_codiciAzienda1_tipo1 <- sample(temp1_tipo1_df$codiceAzienda, 392, replace=F)
 tipo1.codiceazienda <- c(v_codiciAzienda_tipo1, v_codiciAzienda1_tipo1)
-v_codicestazione_tipo1 <- sample(temp_tipo1_df$codice, 8, replace=F)
+v_codicestazione_tipo1 <- temp_tipo1_df$codice
 v_codicestazione1_tipo1 <- sample(temp1_tipo1_df$codice, 392, replace=F)
 tipo1.codicestazione <- c(v_codicestazione_tipo1, v_codicestazione1_tipo1)
 v_codiciAziendatipo2 <- sample(temp_tipo1_df$codiceAzienda, 8, replace=F)
@@ -157,6 +157,7 @@ dbWriteTable(con,
 temp_cf_tipo2 <- dbGetQuery(con, "SELECT cf FROM TIPO1;")
 temp_cf_tipo2 <- temp_cf_tipo2$cf
 v_cf <- setdiff(v_cf,temp_cf_tipo2)
+
 tipo2_df <- data.frame(cf= sample(v_cf,600,replace=F),
                        telefono = sample(v_telefono,600,replace=F),
                        residenza = sample(v_comuni, 600, replace = T), 
@@ -209,11 +210,12 @@ dbWriteTable(con,
              row.names=F)
 
 #populate table "eroga"
-temp_pompa_df <- dbGetQuery(con, "SELECT numero,codicestazione from POMPA;")
-temp_pompa.codicestazione <- temp_pompa_df$codicestazione;
-temp_pompa.numero <- temp_pompa_df$numero;
+temp_pompa_df <- dbGetQuery(con, "SELECT numero,codicestazione,tipocarburante from POMPA;")
+temp_pompa.codicestazione <- temp_pompa_df$codicestazione
+temp_pompa.numero <- temp_pompa_df$numero
+temp_pompa.tipocarburante <- temp_pompa_df$tipocarburante
 # eroga.codicestazione <- sample(temp_stazione, 1500, replace=T)
-eroga_df <- data.frame(tipocarburante = sample(carburante_df$tipo, 1500, replace = T),
+eroga_df <- data.frame(tipocarburante = temp_pompa.tipocarburante,
                        numeropompa = temp_pompa.numero,
                        codicestazione = temp_pompa.codicestazione)
 # eroga_df
@@ -231,10 +233,8 @@ for(i in 1:1500){
   j <- v_capacitamassima[i]
   v_quantitadisponibile[i] <- sample(1:j)
 }
-#temp_carburante <- dbGetQuery(con, "SELECT tipo FROM CARBURANTE;")
-#temp_carburante <- temp_carburante$tipo
-fornisce.codicestazione <- c(v_codiciStazione,v_codiciStazione, v_codiciStazione)
-v_tipocarburante <- c(sample(v_benzina, 500, replace = F), sample(v_gasolio, 500, replace = F), sample(v_gas, 500, replace = T))
+fornisce.codicestazione <- temp_pompa.codicestazione
+v_tipocarburante <- temp_pompa.tipocarburante
 fornisce_df <- data.frame(codicestazione = fornisce.codicestazione,
                           tipocarburante = v_tipocarburante,
                           capacitamassima = v_capacitamassima,
