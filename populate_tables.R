@@ -129,13 +129,15 @@ v_telefono <- v_telefono$telefono
 temp_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceazienda FROM STAZIONE_DI_RIFORNIMENTO LIMIT 8;")
 temp1_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceazienda from STAZIONE_DI_RIFORNIMENTO;")
 v_codiciAzienda_tipo1 <- temp_tipo1_df$codiceazienda
-v_codiciAzienda1_tipo1 <- sample(temp1_tipo1_df$codiceazienda, 392, replace=F)
+tempcodici_tipo1_df <- sample(temp1_tipo1_df, 392, replace=F)
+v_codiciAzienda1_tipo1 <- tempcodici_tipo1_df$codiceazienda
 tipo1.codiceazienda <- c(v_codiciAzienda_tipo1, v_codiciAzienda1_tipo1)
 v_codicestazione_tipo1 <- temp_tipo1_df$codice
-v_codicestazione1_tipo1 <- sample(temp1_tipo1_df$codice, 392, replace=F)
+v_codicestazione1_tipo1 <- tempcodici_tipo1_df$codice
 tipo1.codicestazione <- c(v_codicestazione_tipo1, v_codicestazione1_tipo1)
 v_codiciAzienda_tipo2 <- temp_tipo1_df$codiceazienda
-v_codiciAzienda1_tipo2 <- sample(temp1_tipo1_df$codiceazienda, 592, replace=T)
+tempcodici_tipo2_df <- sample(temp1_tipo1_df, 592, replace=T)
+v_codiciAzienda1_tipo2 <- tempcodici_tipo2_df$codiceazienda
 tipo2.codiceazienda <- c(v_codiciAzienda_tipo2, v_codiciAzienda1_tipo2)
 
 tipo1_df <- data.frame(cf= sample(v_cf,400,replace=F),
