@@ -30,7 +30,6 @@ temp_azienda <- temp_azienda$codice
 v_codiciAzienda <- sample(temp_azienda, 8, replace=F)
 v_codiciAzienda1 <- sample(temp_azienda, 492, replace=T)
 stazione_di_rifornimento.codiceazienda <- c(v_codiciAzienda, v_codiciAzienda1)
-set.seed(7)
 v_latitudini <- readLines("./latitudini.txt")
 v_longitudini <- readLines("./longitudini.txt")
 stazione_di_rifornimento_df <- data.frame(codice = sample(100:1000, 500, replace=F),
@@ -57,7 +56,6 @@ dbWriteTable(con,
              row.names=F)
 
 # populate table "pompa"
-set.seed(7)
 v_benzina <- array()
 for(i in 1:800){
   v_benzina[[i]] <- "benzina"
@@ -100,7 +98,6 @@ dbWriteTable(con,
              row.names=F)
 
 #populate table "tipo1"
-set.seed(7)
 v_lettere <- readLines("./lettere.txt")
 v_giorni <- readLines("./giorni.txt")
 v_anno <- readLines("./AnniLavorativi.txt") #in età lavorativa tra 1961 e 2006
@@ -127,18 +124,19 @@ v_telefono <- data.frame(cifra1=sample(0:9,10000,replace=T),
 v_telefono <- unite(v_telefono, telefono, cifra1,cifra2,cifra3,cifra4,cifra5,cifra6,cifra7,cifra8,cifra9,cifra10, sep="") 
 v_telefono <- v_telefono$telefono
 temp_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceazienda FROM STAZIONE_DI_RIFORNIMENTO LIMIT 8;")
-temp1_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceazienda from STAZIONE_DI_RIFORNIMENTO;")
+temp1_tipo1_df <- dbGetQuery(con, "SELECT codice,codiceazienda from STAZIONE_DI_RIFORNIMENTO OFFSET 16 LIMIT 392;")
 v_codiciAzienda_tipo1 <- temp_tipo1_df$codiceazienda
-tempcodici_tipo1_df <- sample(temp1_tipo1_df, 392, replace=F)
-v_codiciAzienda1_tipo1 <- tempcodici_tipo1_df$codiceazienda
+v_codiciAzienda1_tipo1 <- temp1_tipo1_df$codiceazienda
 tipo1.codiceazienda <- c(v_codiciAzienda_tipo1, v_codiciAzienda1_tipo1)
 v_codicestazione_tipo1 <- temp_tipo1_df$codice
-v_codicestazione1_tipo1 <- tempcodici_tipo1_df$codice
+v_codicestazione1_tipo1 <- temp1_tipo1_df$codice
 tipo1.codicestazione <- c(v_codicestazione_tipo1, v_codicestazione1_tipo1)
 v_codiciAzienda_tipo2 <- temp_tipo1_df$codiceazienda
-tempcodici_tipo2_df <- sample(temp1_tipo1_df, 592, replace=T)
-v_codiciAzienda1_tipo2 <- tempcodici_tipo2_df$codiceazienda
-tipo2.codiceazienda <- c(v_codiciAzienda_tipo2, v_codiciAzienda1_tipo2)
+temp_tipo2_df <- dbGetQuery(con, "SELECT codice,codiceazienda FROM STAZIONE_DI_RIFORNIMENTO OFFSET 16 LIMIT 392;")
+temp1_tipo2_df <- dbGetQuery(con, "SELECT codice,codiceazienda from STAZIONE_DI_RIFORNIMENTO OFFSET 300 LIMIT 200;")
+v_codiciAzienda1_tipo2 <- temp_tipo2_df$codiceazienda
+v_codiciAzienda2_tipo2 <- temp1_tipo2_df$codiceazienda
+tipo2.codiceazienda <- c(v_codiciAzienda_tipo2, c(v_codiciAzienda1_tipo2, v_codiciAzienda2_tipo2))
 
 tipo1_df <- data.frame(cf= sample(v_cf,400,replace=F),
                        telefono = sample(v_telefono,400,replace = F),
@@ -193,7 +191,7 @@ temp_cf <- temp_cf$cf
 v_pdg <- sample(temp_cf, 600, replace=F)
 v_pdg1 <- sample(temp_cf, 1600, replace=T)
 pdg.cf <- c(v_pdg,v_pdg1)
-v_codicestazione_pdg <- sample(temp_stazione, 500, replace=F)
+v_codicestazione_pdg <-  temp_stazione
 v_codicestazione_pdg1 <- sample(temp_stazione, 1700, replace=T)
 pdg.codicestazione <- c(v_codicestazione_pdg, v_codicestazione_pdg1)
 temp_settimana <- dbGetQuery(con, "SELECT numerosettimana FROM PIANO_DI_LAVORO_SETTIMANALE;")
