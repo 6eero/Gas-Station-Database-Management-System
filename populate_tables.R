@@ -227,18 +227,21 @@ dbWriteTable(con,
              row.names=F)
 
 #populate table "fornisce"
-v_capacitamassima <- c(sample(50000:60000, 1500, replace=T))
+temp_fornisce <- dbGetQuery(con, "SELECT codicestazione,tipocarburante FROM POMPA GROUP BY codicestazione,tipocarburante;")
+fornisce.codicestazione <- temp_fornisce$codicestazione
+fornisce.tipocarburante <- temp_fornisce$tipocarburante
+n <- dim(temp_fornisce) #array con numero tuple 
+n <- n[1] # numero tuple
+v_capacitamassima <- c(sample(50000:60000, n, replace=T))
 v_quantitadisponibile <- array()
-for(i in 1:1500){
+for(i in 1:n){
   j <- v_capacitamassima[i]
-  v_quantitadisponibile[i] <- sample(1:j)
+  v_quantitadisponibile[i] <- sample(1:j,1)
 }
-#temp_carburante <- dbGetQuery(con, "SELECT tipo FROM CARBURANTE;")
-#temp_carburante <- temp_carburante$tipo
 fornisce.codicestazione <- temp_pompa.codicestazione
 v_tipocarburante <- temp_pompa.tipocarburante
 fornisce_df <- data.frame(codicestazione = fornisce.codicestazione,
-                          tipocarburante = v_tipocarburante,
+                          tipocarburante = fornisce.tipocarburante,
                           capacitamassima = v_capacitamassima,
                           quantitadisponibile = v_quantitadisponibile
                           )
