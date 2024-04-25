@@ -238,8 +238,6 @@ for(i in 1:n){
   j <- v_capacitamassima[i]
   v_quantitadisponibile[i] <- sample(1:j,1)
 }
-fornisce.codicestazione <- temp_pompa.codicestazione
-v_tipocarburante <- temp_pompa.tipocarburante
 fornisce_df <- data.frame(codicestazione = fornisce.codicestazione,
                           tipocarburante = fornisce.tipocarburante,
                           capacitamassima = v_capacitamassima,
