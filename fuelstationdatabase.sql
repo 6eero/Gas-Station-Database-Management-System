@@ -914,14 +914,14 @@ FROM STAZIONE_DI_RIFORNIMENTO AS S
 GROUP BY S.comune, S.codiceAzienda;
 
 -- 7. Tutti i dipendenti che lavorano presso una stazione che può erogare un 
--- carburante che ha capacità disponibile almeno 50 e al massimo 100
+-- carburante che ha capacità disponibile almeno 10000 e al massimo 17000
 
 SELECT CF
 FROM TIPO1 as T
 WHERE EXISTS (SELECT *
        		FROM FORNISCE AS F
         	WHERE F.codiceStazione=T.codiceStazione 
-        	AND quantitaDisponibile<=100 AND quantitaDisponibile>=50)
+        	AND quantitaDisponibile<=17000 AND quantitaDisponibile>=10000)
 UNION 
 SELECT T.CF
 FROM TIPO2 as T, PIANO_DI_LAVORO_GIORNALIERO AS PDG
@@ -929,7 +929,7 @@ WHERE T.CF=PDG.CFDipendente
 	AND EXISTS (SELECT *
        			FROM FORNISCE AS F
         		WHERE F.codiceStazione=PDG.codiceStazione 
-        		AND quantitaDisponibile<=100 AND quantitaDisponibile>=50);
+        		AND quantitaDisponibile<=17000 AND quantitaDisponibile>=10000);
 
 -- 8. Tutti i dipendenti la cui residenza è uguale ad almeno 3 altri
 -- dipendenti che lavorano nella stessa azienda
