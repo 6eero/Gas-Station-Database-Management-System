@@ -46,7 +46,7 @@ dbWriteTable(con,
              row.names=F)
 
 #populate table "carburante"
-carburante_df <- data.frame(tipo = c("benzina", "gasolio", "gas"),
+carburante_df <- data.frame(tipo = c("benzina", "diesel", "gas"),
                             numerodipompe = c("800", "550", "150")) # poche di gas 
 #carburante_df
 dbWriteTable(con, 
@@ -61,9 +61,9 @@ for(i in 1:800){
   v_benzina[[i]] <- "benzina"
 }
 
-v_gasolio <- array()
+v_diesel <- array()
 for(i in 1:550){
-  v_gasolio[[i]] <- "gasolio"
+  v_diesel[[i]] <- "diesel"
 }
 v_gas <- array()
 for(i in 1:150){
@@ -76,19 +76,19 @@ temp_stazione <- temp_stazione$codice
 v_codiciStazione <- sample(temp_stazione, 500, replace=F)
 #800 pompe di benzina
 pompa_benzina.codicestazione <- c(v_codiciStazione,sample(temp_stazione, 300, replace=T))
-pompa_gasolio.codicestazione <- sample(temp_stazione, 550, replace=T)
+pompa_diesel.codicestazione <- sample(temp_stazione, 550, replace=T)
 pompa_gas.codicestazione <- sample(temp_stazione, 150, replace=T)
 
 pompa_benzina_df <- data.frame(numero = sample(1:800,800,replace=F),
                                codicestazione = pompa_benzina.codicestazione, 
                                tipocarburante = v_benzina)
-pompa_gasolio_df <- data.frame(numero = sample(801:1351,550,replace=F),
-                               codicestazione = pompa_gasolio.codicestazione, 
-                               tipocarburante = v_gasolio)
+pompa_diesel_df <- data.frame(numero = sample(801:1351,550,replace=F),
+                               codicestazione = pompa_diesel.codicestazione, 
+                               tipocarburante = v_diesel)
 pompa_gas_df <- data.frame(numero = sample(1352:1900,150,replace=F),
                                codicestazione = pompa_gas.codicestazione, 
                                tipocarburante = v_gas)
-pompa_df <- merge(pompa_benzina_df,pompa_gasolio_df, all=TRUE)
+pompa_df <- merge(pompa_benzina_df,pompa_diesel_df, all=TRUE)
 pompa_df <- merge(pompa_df, pompa_gas_df, all=TRUE)
 
 dbWriteTable(con, 
@@ -258,7 +258,7 @@ ds_grafico1 <- dbGetQuery(con, "SELECT numeroDiPompe, tipo FROM CARBURANTE;")
 
 plot1 <- ggplot(data = ds_grafico1, aes(x=tipo, y=numerodipompe, fill=tipo)) + 
 	geom_bar(stat = "identity") +
-	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, gasolio giallo, diesel nero
+	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, diesel giallo, diesel nero
 	theme_bw() + #sfondo bianco
 	theme(legend.position = "none") +
 	labs(y= "Numero di Pompe", x = "Tipologia di Carburante",fill = "Tipo")
@@ -280,7 +280,7 @@ plot2 <- ggplot(data = ds_grafico2, aes(x=codice_stringa, y=quantitadisponibile,
 		breaks = waiver(),
 		n.breaks = 9 #numero di break sull'asse y
 	) +
-	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, gasolio giallo, diesel nero
+	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, diesel giallo, diesel nero
 	theme_bw() + #sfondo bianco
 	labs(y= "Quantità Disponibile", x = "Codice dell'Azienda", fill = "Tipologia di Carburante")
 
