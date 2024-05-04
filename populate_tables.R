@@ -258,7 +258,7 @@ ds_grafico1 <- dbGetQuery(con, "SELECT numeroDiPompe, tipo FROM CARBURANTE;")
 
 plot1 <- ggplot(data = ds_grafico1, aes(x=tipo, y=numerodipompe, fill=tipo)) + 
 	geom_bar(stat = "identity") +
-	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, diesel giallo, diesel nero
+	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, gas giallo, diesel nero
 	theme_bw() + #sfondo bianco
 	theme(legend.position = "none") +
 	labs(y= "Numero di Pompe", x = "Tipologia di Carburante",fill = "Tipo")
@@ -280,7 +280,7 @@ plot2 <- ggplot(data = ds_grafico2, aes(x=codice_stringa, y=quantitadisponibile,
 		breaks = waiver(),
 		n.breaks = 9 #numero di break sull'asse y
 	) +
-	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, diesel giallo, diesel nero
+	scale_fill_manual(values = c("#467F48", "#EBD436", "#000000")) + # benzina verde, gas giallo, diesel nero
 	theme_bw() + #sfondo bianco
 	labs(y= "Quantità Disponibile", x = "Codice dell'Azienda", fill = "Tipologia di Carburante")
 
