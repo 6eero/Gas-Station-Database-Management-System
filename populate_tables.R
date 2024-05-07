@@ -193,7 +193,7 @@ pdg.codicestazione <-  temp_azienda_stazione$codice
 temp_settimana <- dbGetQuery(con, "SELECT numerosettimana FROM PIANO_DI_LAVORO_SETTIMANALE;")
 temp_settimana <- temp_settimana$numerosettimana
 pdg.numerosettimana <- c(v_piano_di_lavoro_s, sample(temp_settimana,4148,replace=T))
-piano_di_lavoro_giornaliero_df <- data.frame(giorno = sample(v_giorno, 4200, replace=T), 
+piano_di_lavoro_giornaliero_df <- data.frame(giorno = v_giorno, 
                                              cfdipendente = pdg.cf,
                                              codicestazione = pdg.codicestazione,
                                              numerosettimana = pdg.numerosettimana) # 52 settimane in un anno
