@@ -192,7 +192,7 @@ temp_azienda_stazione <- dbGetQuery(con, "SELECT S.codice FROM TIPO2 as T JOIN S
 v_pdg <- sample(temp_cf, 600, replace=F)
 v_pdg1 <- sample(temp_cf, 1600, replace=T)
 pdg.cf <- c(v_pdg,v_pdg1)
-temp_azienda_stazione <- temp_azienda_stazione$codice
+temp_azienda_stazione <- temp_azienda_stazione$S.codice
 v_codicestazione_pdg <-  sample(temp_azienda_stazione, 600, replace=F)
 v_codicestazione_pdg1 <- sample(temp_azienda_stazione, 1600, replace=T)
 pdg.codicestazione <- c(v_codicestazione_pdg, v_codicestazione_pdg1)
