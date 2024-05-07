@@ -186,20 +186,16 @@ dbWriteTable(con,
 
 # populate table "piano_di_lavoro_giornaliero"
 v_giorno <- readLines("Giornate.txt")
-temp_cf <- dbGetQuery(con, "SELECT cf FROM TIPO2;")
-temp_cf <- temp_cf$cf
-temp_azienda_stazione <- dbGetQuery(con, "SELECT S.codice FROM TIPO2 as T JOIN STAZIONE_DI_RIFORNIMENTO as S ON T.codiceazienda=S.codice;")
-v_pdg <- sample(temp_cf, 600, replace=F)
-v_pdg1 <- sample(temp_cf, 1600, replace=T)
-pdg.cf <- c(v_pdg,v_pdg1)
+temp_azienda_stazione <- dbGetQuery(con, "SELECT cf, codice FROM (SELECT T.cf, S.codice, ROW_NUMBER() OVER (PARTITION BY T.cf) AS row_num
+    FROM tipo2 AS T JOIN stazione_di_rifornimento AS S ON T.codiceazienda = S.codiceazienda) AS subquery WHERE row_num <= 7;")
+temp_cf <- temp_azienda_stazione$cf
+pdg.cf <- sample(temp_cf, 4200, replace=F)
 temp_azienda_stazione <- temp_azienda_stazione$S.codice
-v_codicestazione_pdg <-  sample(temp_azienda_stazione, 600, replace=F)
-v_codicestazione_pdg1 <- sample(temp_azienda_stazione, 1600, replace=T)
-pdg.codicestazione <- c(v_codicestazione_pdg, v_codicestazione_pdg1)
+pdg.codicestazione <-  sample(temp_azienda_stazione, 4200, replace=F)
 temp_settimana <- dbGetQuery(con, "SELECT numerosettimana FROM PIANO_DI_LAVORO_SETTIMANALE;")
 temp_settimana <- temp_settimana$numerosettimana
-pdg.numerosettimana <- c(v_piano_di_lavoro_s, sample(temp_settimana,2148,replace=T))
-piano_di_lavoro_giornaliero_df <- data.frame(giorno = sample(v_giorno, 2200, replace=T), 
+pdg.numerosettimana <- c(v_piano_di_lavoro_s, sample(temp_settimana,4148,replace=T))
+piano_di_lavoro_giornaliero_df <- data.frame(giorno = sample(v_giorno, 4200, replace=T), 
                                              cfdipendente = pdg.cf,
                                              codicestazione = pdg.codicestazione,
                                              numerosettimana = pdg.numerosettimana) # 52 settimane in un anno
