@@ -124,8 +124,12 @@ RETURNS trigger
 language plpgsql as 
 $$
 BEGIN
-	PERFORM * FROM TIPO1, STAZIONE_DI_RIFORNIMENTO AS STAZIONE
-		WHERE new.codiceStazione = STAZIONE.codice AND new.codiceAzienda <> STAZIONE.codiceAzienda;
+PERFORM * FROM AZIENDA AS A WHERE A.codice = old.codiceazienda;
+IF FOUND
+	PERFORM * FROM TIPO1 AS T1, STAZIONE_DI_RIFORNIMENTO AS STAZIONE
+			WHERE new.codiceStazione = STAZIONE.codice AND 
+	                      T1.codicestazione = STAZIONE.codice AND
+			      new.codiceAzienda <> STAZIONE.codiceAzienda;
 	IF FOUND
 	THEN
 		RAISE NOTICE 'dipendente lavora per una stazione non di proprieta di azienda per cui lavora';
@@ -133,6 +137,9 @@ BEGIN
 	ELSE
 		RETURN new;
 	END IF;
+ELSE
+	RETURN new;
+END IF;
 END;
 $$;
 
@@ -150,8 +157,12 @@ RETURNS trigger
 language plpgsql as 
 $$
 BEGIN
-	PERFORM * FROM TIPO2, PIANO_DI_LAVORO_GIORNALIERO AS PLG, STAZIONE_DI_RIFORNIMENTO AS STAZIONE
-		WHERE STAZIONE.codice = PLG.codiceStazione AND new.codiceAzienda <> STAZIONE.codiceAzienda;
+PERFORM * FROM AZIENDA AS A WHERE A.codice = old.codiceazienda;
+IF FOUND
+	PERFORM * FROM TIPO2 AS T2, PIANO_DI_LAVORO_GIORNALIERO AS PLG, STAZIONE_DI_RIFORNIMENTO AS STAZIONE
+		  WHERE PLG.cfdipendente = T2.cf AND
+	                STAZIONE.codice = PLG.codiceStazione AND
+	                new.codiceAzienda <> STAZIONE.codiceAzienda;
 	IF FOUND
 	THEN
 		RAISE NOTICE 'dipendente lavora per una stazione non di proprieta di azienda per cui lavora';
@@ -159,6 +170,9 @@ BEGIN
 	ELSE
 		RETURN new;
 	END IF;
+ELSE 
+	RETURN new;
+END IF;
 END;
 $$;
 
