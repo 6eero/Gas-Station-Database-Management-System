@@ -207,7 +207,7 @@ codiceStazione1 dom_codice_stazione;
 BEGIN
 	SELECT count(DISTINCT codiceStazione) into numstazioni from PIANO_DI_LAVORO_GIORNALIERO AS PLG where PLG.CFDipendente=old.CFDipendente group by CFDipendente;
 	SELECT count(*) into pianistaz from PIANO_DI_LAVORO_GIORNALIERO AS PLG WHERE PLG.codiceStazione=old.codiceStazione and PLG.CFDipendente=old.CFDipendente group by CFDipendente,codiceStazione;
-	IF numstazioni<=2 or (numstazioni=2 and pianistaz<2)
+	IF numstazioni<2 or (numstazioni=2 and pianistaz<2)
 	THEN
 		RAISE NOTICE 'Il dipendente lavora in UNA SOLA stazione, trasferisci da tipo2 a tipo1';
 		PERFORM * from tipo2 where cf=old.cfdipendente;
@@ -262,7 +262,7 @@ BEGIN
 	SELECT count(DISTINCT codicestazione) into numstazioni from PIANO_DI_LAVORO_GIORNALIERO AS PLG where PLG.CFDipendente=new.CFDipendente group by CFDipendente;
 	SELECT count(*) into pianistaz from PIANO_DI_LAVORO_GIORNALIERO AS PLG WHERE PLG.codiceStazione=new.codiceStazione and PLG.CFDipendente=new.CFDipendente
 	group by CFDipendente,codiceStazione;
-	IF numstazioni<=2 or (numstazioni=2 and pianistaz<2)
+	IF numstazioni<=2
 	THEN 
 		RAISE NOTICE 'Il dipendente lavora in UNA SOLA stazione, trasferisci da tipo2 a tipo1';
 		PERFORM * from tipo2 where cf=new.cfdipendente;
@@ -272,7 +272,7 @@ BEGIN
 			select nome into nome1 from tipo2 where new.CFDipendente=cf;
 			select cognome into cognome1 from tipo2 where new.CFDipendente=cf;
 			select codiceAzienda into codiceAzienda1 from tipo2 where new.CFDipendente=cf;
-			select codiceStazione into codiceStazione1 from piano_di_lavoro_giornaliero where new.CFDipendente=CFdipendente and codiceStazione<>new.codiceStazione;
+			select codiceStazione into codiceStazione1 from piano_di_lavoro_giornaliero where new.CFDipendente=CFdipendente and codiceStazione=new.codiceStazione;
 			delete from tipo2 where new.CFDipendente=cf;
 			perform * from tipo1 where cf=new.cfdipendente;
 			if not found then 
