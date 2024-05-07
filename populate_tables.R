@@ -188,11 +188,12 @@ dbWriteTable(con,
 v_giorno <- readLines("Giornate.txt")
 temp_cf <- dbGetQuery(con, "SELECT cf FROM TIPO2;")
 temp_cf <- temp_cf$cf
+temp_azienda_stazione <- dbGetQuery(con, "SELECT S.codice FROM TIPO2 JOIN STAZIONE_DI_RIFORNIMENTO as S ON codiceazienda=codice;")
 v_pdg <- sample(temp_cf, 600, replace=F)
 v_pdg1 <- sample(temp_cf, 1600, replace=T)
 pdg.cf <- c(v_pdg,v_pdg1)
-v_codicestazione_pdg <-  temp_stazione
-v_codicestazione_pdg1 <- sample(temp_stazione, 1700, replace=T)
+v_codicestazione_pdg <-  sample(temp_azienda_stazione$codice, 600, replace=F)
+v_codicestazione_pdg1 <- sample(temp_azienda_stazione$codice, 1600, replace=T)
 pdg.codicestazione <- c(v_codicestazione_pdg, v_codicestazione_pdg1)
 temp_settimana <- dbGetQuery(con, "SELECT numerosettimana FROM PIANO_DI_LAVORO_SETTIMANALE;")
 temp_settimana <- temp_settimana$numerosettimana
