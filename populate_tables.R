@@ -188,10 +188,8 @@ dbWriteTable(con,
 v_giorno <- readLines("Giornate.txt")
 temp_azienda_stazione <- dbGetQuery(con, "SELECT cf, codice FROM (SELECT T.cf, S.codice, ROW_NUMBER() OVER (PARTITION BY T.cf) AS row_num
     FROM tipo2 AS T JOIN stazione_di_rifornimento AS S ON T.codiceazienda = S.codiceazienda) AS subquery WHERE row_num <= 7;")
-temp_cf <- temp_azienda_stazione$cf
-pdg.cf <- sample(temp_cf, 4200, replace=F)
-temp_azienda_stazione <- temp_azienda_stazione$codice
-pdg.codicestazione <-  sample(temp_azienda_stazione, 4200, replace=F)
+pdg.cf <- temp_azienda_stazione$cf
+pdg.codicestazione <-  temp_azienda_stazione$codice
 temp_settimana <- dbGetQuery(con, "SELECT numerosettimana FROM PIANO_DI_LAVORO_SETTIMANALE;")
 temp_settimana <- temp_settimana$numerosettimana
 pdg.numerosettimana <- c(v_piano_di_lavoro_s, sample(temp_settimana,4148,replace=T))
