@@ -188,7 +188,7 @@ dbWriteTable(con,
 v_giorno <- readLines("Giornate.txt")
 temp_cf <- dbGetQuery(con, "SELECT cf FROM TIPO2;")
 temp_cf <- temp_cf$cf
-temp_azienda_stazione <- dbGetQuery(con, "SELECT S.codice FROM TIPO2 JOIN STAZIONE_DI_RIFORNIMENTO as S ON codiceazienda=codice;")
+temp_azienda_stazione <- dbGetQuery(con, "SELECT S.codice FROM TIPO2 as T JOIN STAZIONE_DI_RIFORNIMENTO as S ON T.codiceazienda=S.codice;")
 v_pdg <- sample(temp_cf, 600, replace=F)
 v_pdg1 <- sample(temp_cf, 1600, replace=T)
 pdg.cf <- c(v_pdg,v_pdg1)
