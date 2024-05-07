@@ -1,7 +1,7 @@
 -- INSERIMENTO
 -- 1. Assunzione di un nuovo dipendente all'interno di un'azienda
 
-INSERT INTO TIPO1(cf, telefono, residenza, nome, cognome, codiceAzienda, codiceStazione) VALUES ('PTRPTR85M63G475H', '3692581470', 'Sappada', 'Pietro', 'Pietroschi', 2, 446);
+INSERT INTO TIPO1(cf, telefono, residenza, nome, cognome, codiceAzienda, codiceStazione) VALUES ('PTRPTR85M63G475H', '3692581470', 'Sappada', 'pietro', 'pucciotti', 2, 446);
 
 
 -- CANCELLAZIONE
