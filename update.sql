@@ -124,7 +124,7 @@ IF FOUND
 THEN
 	PERFORM * FROM TIPO1 AS T1, STAZIONE_DI_RIFORNIMENTO AS STAZIONE
                         WHERE new.codiceStazione = STAZIONE.codice AND
-                              new.codiceAzienda <> STAZIONE.codiceAzienda
+                              new.codiceAzienda <> STAZIONE.codiceAzienda;
 	IF FOUND
 	THEN
 		RAISE NOTICE 'dipendente lavora per una stazione non di proprieta di azienda per cui lavora';
