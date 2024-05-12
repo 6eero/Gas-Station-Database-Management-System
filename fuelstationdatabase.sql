@@ -85,7 +85,7 @@ CREATE TABLE FORNISCE(
 	capacitaMassima dom_quantita_serbatoio NOT NULL,
 	tipoCarburante varchar(10) NOT NULL,
 	codiceStazione dom_codice_stazione NOT NULL,
-	foreign key (codiceStazione) REFERENCES STAZIONE_DI_RIFORNIMENTO(codice) ON DELETE CASCADE,
+	foreign key (codiceStazione) REFERENCES STAZIONE_DI_RIFORNIMENTO(codice) ON UPDATE CASCADE ON DELETE CASCADE,
 	foreign key (tipoCarburante) REFERENCES CARBURANTE(tipo) ON UPDATE CASCADE ON DELETE CASCADE,
 	PRIMARY KEY (codiceStazione, tipoCarburante),
 	CONSTRAINT quantita CHECK (quantitaDisponibile <= capacitaMassima) 
@@ -95,17 +95,17 @@ CREATE TABLE EROGA(
 	tipoCarburante varchar(10),
 	numeroPompa int,
 	codiceStazione dom_codice_stazione,
-	foreign key (tipoCarburante) REFERENCES CARBURANTE(tipo) ON DELETE CASCADE, 
-	foreign key (numeroPompa,codiceStazione) REFERENCES POMPA(numero,codiceStazione) ON DELETE CASCADE, 
+	foreign key (tipoCarburante) REFERENCES CARBURANTE(tipo) ON UPDATE CASCADE ON DELETE CASCADE, 
+	foreign key (numeroPompa,codiceStazione) REFERENCES POMPA(numero,codiceStazione) ON UPDATE CASCADE ON DELETE CASCADE, 
 	PRIMARY KEY (tipoCarburante, numeroPompa, codiceStazione)
 );
 
 
---------------------------------------------------
+--------------------------------------------------------------------------------------------------
 --												--
--- 					TRIGGER 					--
+-- 					    TRIGGER 					        --
 --												--
---------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 
 
@@ -321,7 +321,7 @@ RETURNS trigger
 language plpgsql as 
 $$
 BEGIN
-	PERFORM * FROM STAZIONE_DI_RIFORNIMENTO AS S where S.codice=old.codiceStazione; 
+	PERFORM * FROM STAZIONE_DI_RIFORNIMENTO AS S, POMPA AS P where S.codice=old.codiceStazione AND P.numero=old.numeroPompa; 
 	IF FOUND THEN 
 		PERFORM * FROM FORNISCE where old.codiceStazione=FORNISCE.codiceStazione and old.tipoCarburante=FORNISCE.tipoCarburante;
 		IF FOUND THEN
@@ -533,7 +533,7 @@ BEGIN
 	IF FOUND THEN 
     	PERFORM * FROM TIPO1 AS T WHERE T.CF<>new.CF and T.codiceStazione=old.codiceStazione;
 		if NOT FOUND then 
-			RAISE NOTICE 'ogni stazione presenta almeno un dipendente di tipo1 ';
+			RAISE NOTICE 'ogni stazione presenta almeno un dipendente di tipo1';
 			RETURN NULL;
 		else 
 			RETURN new;
@@ -766,7 +766,7 @@ RETURNS trigger
 language plpgsql as
 $$
 BEGIN
-	PERFORM * FROM STAZIONE_DI_RIFORNIMENTO AS S, FORNISCE AS F, CARBURANTE AS T where S.codice=F.codiceStazione and F.tipoCarburante=T.tipo and F.tipoCarburante=old.tipoCarburante;
+	PERFORM * FROM STAZIONE_DI_RIFORNIMENTO AS S, FORNISCE AS F, CARBURANTE AS T where S.codice=F.codiceStazione and F.tipoCarburante=T.tipo and F.tipoCarburante=old.tipoCarburante and F.codiceStazione=old.codiceStazione;
 	if FOUND then 
 		PERFORM * FROM FORNISCE AS F1 WHERE old.tipoCarburante <> F1.tipoCarburante AND F1.codiceStazione=old.codiceStazione;
 		if NOT FOUND then 
@@ -819,7 +819,7 @@ RETURNS trigger
 language plpgsql as
 $$
 BEGIN
-	PERFORM * FROM POMPA AS P, EROGA AS E, CARBURANTE AS T where P.numero=E.numeroPompa and E.codiceStazione=P.codiceStazione and E.tipoCarburante=T.tipo and T.tipo=old.tipoCarburante;
+	PERFORM * FROM POMPA AS P, EROGA AS E, CARBURANTE AS T where P.numero=E.numeroPompa and E.codiceStazione=P.codiceStazione and E.tipoCarburante=T.tipo and T.tipo=old.tipoCarburante and (E.numeroPompa=old.numeroPompa and E.codiceStazione=old.codiceStazione);
 	if FOUND then 
 		PERFORM * FROM EROGA AS E1 WHERE E1.tipoCarburante <> old.tipoCarburante AND (E1.numeroPompa=old.numeroPompa and E1.codiceStazione=old.codiceStazione);
 		if NOT FOUND then 
@@ -844,7 +844,7 @@ RETURNS trigger
 language plpgsql as
 $$
 BEGIN
-	PERFORM * FROM POMPA AS P, EROGA AS E, CARBURANTE AS T where P.numero=E.numeroPompa and E.codiceStazione=P.codiceStazione and E.tipoCarburante=T.tipo and T.tipo=old.tipoCarburante;
+	PERFORM * FROM POMPA AS P, EROGA AS E, CARBURANTE AS T where P.numero=E.numeroPompa and E.codiceStazione=P.codiceStazione and E.tipoCarburante=T.tipo and T.tipo=old.tipoCarburante and (E.numeroPompa=old.numeroPompa and E.codiceStazione=old.codiceStazione);
 	if FOUND then 
 		PERFORM * FROM EROGA AS E1 WHERE new.tipoCarburante <> E1.tipoCarburante AND (E1.numeroPompa=old.numeroPompa AND E1.codiceStazione=old.codiceStazione);
 		if NOT FOUND then 
