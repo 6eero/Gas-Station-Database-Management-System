@@ -74,9 +74,9 @@ If you wish to perform operations (insertions, updates, deletions, queries), ple
 \i operations.sql
 ```
 
-To generate graphs, please use the following script:
+To generate plots, please use the following script:
 ```
-RScript graphs.R
+RScript plots.R
 ```
 
 <br>
