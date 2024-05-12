@@ -8,7 +8,7 @@ The project proposes a management system for gas stations and owning companies. 
 # Components
 - [ER Diagram](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
 - [SQL Schema and triggers](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/fuelstationdatabase.sql)
-- [R for populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tables.R)
+- R for [populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tables.R) and [creating the plots](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/grafici.R)
 - [SQL Operations Script](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/operazioni.sql)
 
 # Usage
