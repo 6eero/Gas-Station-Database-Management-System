@@ -1,11 +1,6 @@
 CREATE SCHEMA fuelstationdatabase;
 SET SEARCH_PATH TO fuelstationdatabase;
 
---------------------------------------------------
---												--
---						SQL						--
---												--
---------------------------------------------------
 CREATE DOMAIN dom_codice_azienda AS integer
 	CHECK(VALUE BETWEEN 1 AND 99);
 
