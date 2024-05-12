@@ -1,9 +1,7 @@
 # About
-The project proposes a management system for gas stations and owning companies. Each station is identified by a code and linked to a company with details about its location, types of fuel, and pumps. The companies, with a unique code, have a regional manager and a specific office. Employees, identified by their fiscal code, work at company stations, with monitoring of the weekly plan. The goal is to simplify the management of operations and human resources, paying attention to possible inconsistencies.
+The project proposes a **management system for gas stations and owning companies**. Each station is identified by a code and linked to a company with details about its location, types of fuel, and pumps. The companies, with a unique code, have a regional manager and a specific office. Employees, identified by their fiscal code, work at company stations, with monitoring of the weekly plan. The goal is to simplify the management of operations and human resources, paying attention to possible inconsistencies.
 
 ![ER-Schema](https://github.com/6eero/Gas-Station-Database-Management-System/assets/114809573/f9ddb4f8-bb0c-44c7-b06d-1e32a3d18829)
-
-
 
 # Components
 - [ER Diagram](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
@@ -11,8 +9,16 @@ The project proposes a management system for gas stations and owning companies. 
 - R for [populating the tables](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/populate_tables.R) and [creating the plots](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/grafici.R)
 - [SQL Operations Script](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/operazioni.sql)
 
-# Usage
+# Plots
+<table>
+  <tr>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico1.png"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico2.png"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico3.png"></td>
+  </tr>
+</table>
 
+# Usage
 1. **Clone the Repository from GitHub**:
    ```
    git clone https://github.com/6eero/Gas-Station-Database-Management-System
@@ -61,12 +67,10 @@ These commands will allow you to set up your environment and run the necessary s
 ```
 SELECT * FROM table_name;
 ```
-# Plots
-<table>
-  <tr>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico1.png"></td>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico2.png"></td>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico3.png"></td>
-  </tr>
-</table>
 <br>
+<br>
+<div align="right">
+<table><td> 
+<a href="#start-of-content">👆 Scroll to top</a>
+</td></table> 
+</div>
