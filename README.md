@@ -79,6 +79,9 @@ To generate plots, please use the following script:
 RScript plots.R
 ```
 
+# Conclusions
+The outcome of the project is a consistently populated database. The task processing led to the development of an Entity-Relationship schema followed by its translation into a relational model. Ultimately, the creation of graphs facilitated a deeper understanding of the distribution and consistency of the generated data.
+
 <br>
 <br>
 <div align="right">
