@@ -44,7 +44,7 @@ plot2
 # boxplot per la distribuzione di dipendenti (Tipo1 e Tipo2) che hanno la residenza nello stesso comune (divisi per Azienda)
 # correlato alla query 8
 
-ds_grafico3 <- dbGetQuery(con, "CREATE VIEW DIPENDENTI AS SELECT CF, residenza, codiceAzienda FROM TIPO1 UNION SELECT CF, residenza, codiceAzienda FROM TIPO2; SELECT count(*) AS count, residenza, codiceAzienda FROM DIPENDENTI GROUP BY residenza, codiceAzienda;")
+ds_grafico3 <- dbGetQuery(con, "CREATE VIEW DIPENDENTI1 AS SELECT CF, residenza, codiceAzienda FROM TIPO1 UNION SELECT CF, residenza, codiceAzienda FROM TIPO2; SELECT count(*) AS count, residenza, codiceAzienda FROM DIPENDENTI1 GROUP BY residenza, codiceAzienda;")
 
 ds_grafico3_1 <- mutate(ds_grafico3, codiceazienda = as.character(codiceazienda)) # modifica i dati per rendere stringhe i numeri identificativi delle Aziende
 
