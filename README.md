@@ -13,9 +13,9 @@ The project proposes a **management system for gas stations and owning companies
 These plots were generated using [this](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/grafici.R) script
 <table>
   <tr>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico1.png"></td>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico2.png"></td>
-    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico3.png"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico1.jpeg"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico2.jpeg"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico3.jpeg"></td>
   </tr>
 </table>
 
