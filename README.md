@@ -61,3 +61,12 @@ These commands will allow you to set up your environment and run the necessary s
 ```
 SELECT * FROM table_name;
 ```
+# Plots
+<table>
+  <tr>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico1.png"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico2.png"></td>
+    <td><img src="https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/Plots/grafico3.png"></td>
+  </tr>
+</table>
+<br>
