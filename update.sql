@@ -76,7 +76,7 @@ CREATE TABLE PIANO_DI_LAVORO_GIORNALIERO(
 	numeroSettimana dom_numero_settimana NOT NULL,
 	foreign key (CFDipendente) REFERENCES TIPO2(CF) ON UPDATE CASCADE ON DELETE CASCADE, 
 	foreign key (codiceStazione) REFERENCES STAZIONE_DI_RIFORNIMENTO(codice) ON UPDATE CASCADE ON DELETE CASCADE, 
-	foreign key (numeroSettimana)  REFERENCES PIANO_DI_LAVORO_SETTIMANALE(numeroSettimana) ON UPDATE CASCADE,
+	foreign key (numeroSettimana)  REFERENCES PIANO_DI_LAVORO_SETTIMANALE(numeroSettimana) ON DELETE CASCADE,
 	PRIMARY KEY (giorno, CFDipendente, codiceStazione)
 );
 
