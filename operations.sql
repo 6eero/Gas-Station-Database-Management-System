@@ -23,7 +23,8 @@ UPDATE AZIENDA SET codice=12 where codice=21;
 
 -- 4. Modifica del piano di lavoro giornaliero di un dipendente
 
--- seleziono un codice stazione alternativo: l’azienda è uguale ma la stazione presso cui -- lavora il lunedì è diversa rispetto a quelle in cui già presta servizio
+-- seleziono un codice stazione alternativo: l’azienda è uguale ma la stazione presso cui 
+-- lavora il lunedì è diversa rispetto a quelle in cui già presta servizio
 
 CREATE VIEW altra_stazione AS
 SELECT 	T.cf AS cf,
