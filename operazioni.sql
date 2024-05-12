@@ -1,7 +1,13 @@
 -- INSERIMENTO
 -- 1. Assunzione di un nuovo dipendente all'interno di un'azienda
 
-INSERT INTO TIPO1(cf, telefono, residenza, nome, cognome, codiceAzienda, codiceStazione) VALUES ('PTRPTR85M63G475H', '3692581470', 'Sappada', 'pietro', 'pucciotti', 2, 446);
+CREATE VIEW t1stazione AS
+   SELECT codice as codicestazione 
+   FROM STAZIONE_DI_RIFORNIMENTO 
+   WHERE codiceAzienda=2 
+   LIMIT 1;
+
+INSERT INTO TIPO1(cf, telefono, residenza, nome, cognome, codiceAzienda, codiceStazione) VALUES ('PTRPTR85M63G475H', '3692581470', 'Sappada', 'pietro', 'pucciotti', 2, (SELECT codicestazione from t1stazione));
 
 
 -- CANCELLAZIONE
@@ -17,7 +23,25 @@ UPDATE AZIENDA SET codice=12 where codice=21;
 
 -- 4. Modifica del piano di lavoro giornaliero di un dipendente
 
-UPDATE PIANO_DI_LAVORO_GIORNALIERO SET giorno='Martedì' WHERE cfdipendente='STHIYE72F03P048D' AND codicestazione=547;
+-- seleziono un codice stazione alternativo: l’azienda è uguale ma la stazione presso cui -- lavora il lunedì è diversa rispetto a quelle in cui già presta servizio
+
+CREATE VIEW altra_stazione AS
+SELECT 	T.cf AS cf,
+	S.codice AS codicestazione_alternativa
+FROM 	tipo2 AS T JOIN stazione_di_rifornimento AS S ON T.codiceazienda = S.codiceazienda
+WHERE 	T.cf = 'AAQLYV94P29O305M' 
+	AND S.codice NOT IN (
+                             SELECT PDG.codicestazione
+                             FROM piano_di_lavoro_giornaliero AS PDG
+                             WHERE cfdipendente = 'AAQLYV94P29O305M'
+                             );
+
+UPDATE PIANO_DI_LAVORO_GIORNALIERO AS PDG 
+SET codicestazione = (SELECT codicestazione_alternativa 
+                      FROM altra_stazione 
+                      WHERE cf = PDG.cfdipendente 
+                      LIMIT 1) 
+WHERE cfdipendente = 'AAQLYV94P29O305M' and giorno = 'Lunedì';
 
 
 -- QUERY SQL
@@ -32,8 +56,8 @@ GROUP BY S.codice;
 SELECT codice
 FROM numero_pompe AS NP
 WHERE NOT EXISTS (SELECT *
-				  FROM numero_pompe as NP2
-				  WHERE NP.codice<>NP2.codice AND NP.N<NP2.N);
+			FROM numero_pompe as NP2
+			WHERE NP.codice<>NP2.codice AND NP.N<NP2.N);
 
 -- 6. Per ogni comune n° stazioni di rifornimento di una data azienda
 
@@ -48,16 +72,17 @@ SELECT CF
 FROM TIPO1 as T
 WHERE EXISTS (SELECT *
        		FROM FORNISCE AS F
-        	WHERE F.codiceStazione=T.codiceStazione 
-        	AND quantitaDisponibile<=17000 AND quantitaDisponibile>=10000)
+        		WHERE F.codiceStazione=T.codiceStazione 
+                        AND quantitaDisponibile<=17000 
+                        AND quantitaDisponibile>=10000)
 UNION 
 SELECT T.CF
 FROM TIPO2 as T, PIANO_DI_LAVORO_GIORNALIERO AS PDG
 WHERE T.CF=PDG.CFDipendente
-	AND EXISTS (SELECT *
-       			FROM FORNISCE AS F
-        		WHERE F.codiceStazione=PDG.codiceStazione 
-        		AND quantitaDisponibile<=17000 AND quantitaDisponibile>=10000);
+  AND EXISTS (SELECT *
+       		FROM FORNISCE AS F
+        	WHERE F.codiceStazione=PDG.codiceStazione AND
+                      quantitaDisponibile<=17000 AND quantitaDisponibile>=10000);
 
 -- 8. Tutti i dipendenti la cui residenza è uguale ad almeno 3 altri
 -- dipendenti che lavorano nella stessa azienda
