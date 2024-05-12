@@ -68,6 +68,17 @@ These commands will allow you to set up your environment and run the necessary s
 ```
 SELECT * FROM table_name;
 ```
+
+If you wish to perform operations (insertions, updates, deletions, queries), please use the following command:
+```
+\i operations.sql
+```
+
+To generate graphs, please use the following script:
+```
+RScript graphs.R
+```
+
 <br>
 <br>
 <div align="right">
