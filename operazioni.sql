@@ -50,7 +50,7 @@ WHERE cfdipendente = 'AAQLYV94P29O305M' and giorno = 'Lunedì';
 CREATE VIEW numero_pompe(codice, N) AS
 SELECT S.codice, count(*) AS N 
 FROM POMPA AS P, STAZIONE_DI_RIFORNIMENTO AS S
-WHERE P.codiceStazione=S.codice and P.tipoCarburante='metano'
+WHERE P.codiceStazione=S.codice and P.tipoCarburante='gas'
 GROUP BY S.codice;
 
 SELECT codice
