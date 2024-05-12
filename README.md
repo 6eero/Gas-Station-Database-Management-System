@@ -1,6 +1,9 @@
 # About
 The project proposes a management system for gas stations and owning companies. Each station is identified by a code and linked to a company with details about its location, types of fuel, and pumps. The companies, with a unique code, have a regional manager and a specific office. Employees, identified by their fiscal code, work at company stations, with monitoring of the weekly plan. The goal is to simplify the management of operations and human resources, paying attention to possible inconsistencies.
 
+![ER-Schema](https://github.com/6eero/Gas-Station-Database-Management-System/assets/114809573/f9ddb4f8-bb0c-44c7-b06d-1e32a3d18829)
+
+
 
 # Components
 - [ER Diagram](https://github.com/6eero/Gas-Station-Database-Management-System/blob/main/ER-Schema.png)
